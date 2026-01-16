@@ -1,4 +1,5 @@
 console.log("SERVER STARTING 123");
+const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
 process.on("uncaughtException", (e) => console.error("UNCAUGHT:", e));
 process.on("unhandledRejection", (e) => console.error("REJECTION:", e));
@@ -49,9 +50,8 @@ app.get("/search", async (req, res) => {
   }
 });
 
-const PORT = 8790;
-console.log("LISTEN'e geliyorum, PORT =", PORT);
+const PORT = process.env.PORT || 8790;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Backend running: http://0.0.0.0:${PORT}`);
+  console.log("Backend running on PORT =", PORT);
 });
