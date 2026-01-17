@@ -1,5 +1,4 @@
-console.log("SERVER STARTING 123");
-const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
+const axios = require("axios");
 
 process.on("uncaughtException", (e) => console.error("UNCAUGHT:", e));
 process.on("unhandledRejection", (e) => console.error("REJECTION:", e));
@@ -31,8 +30,9 @@ app.get("/search", async (req, res) => {
 
     const url = `https://serpapi.com/search.json?${params.toString()}`;
 
-    const r = await fetch(url);
-    const data = await r.json();
+   const r = await axios.get(url);
+const data = r.data;
+
 
     const results = (data.shopping_results || []).map((x) => ({
       title: x.title,
